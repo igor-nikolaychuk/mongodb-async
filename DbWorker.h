@@ -12,52 +12,38 @@ using boost::asio::io_service;
 #include "BaseHeader.h"
 #include "ConcurrentQueue.h"
 #include "GenericDbTask.h"
+#include "TaskExecutor.h"
 
-class DbWorker {
-    class TaskExecutor : public boost::static_visitor<int>
-    {
-    public:
-        TaskExecutor(){}
-    public:
-        int operator()(const FindTask* task) const
-        {
-            cout << "FindTask!" << endl;
-            document_vector_ptr documents = make_shared<document_vector>();
-            auto handler = task->completionHandler;
-            documents->push_back(document{} << "a" << 8 << finalize);
-            task->targetService.post([=]() {
-                cout << "lol" << endl;
-                //handler(true, move(documents));
-            });
-            delete task;
-        }
-    };
+class DbWorker: public std::enable_shared_from_this<DbWorker> {
     ConcurrentQueue<GenericDbTask>& mTasks;
-    int mTaskCount = 0;
-    shared_ptr<bool> mStopFlagPtr;
-    TaskExecutor mTaskExecutor;
-
+    bool mStopFlag = false;
+    TaskExecutor* mTaskExecutor;
     void mTaskLoop() {
-        auto stopFlagPtrCopy = mStopFlagPtr;
-        while(!*stopFlagPtrCopy) {
+        auto destroyProtector = shared_from_this();
+        while(!mStopFlag) {
             GenericDbTask t = mTasks.pop();
-            boost::apply_visitor(mTaskExecutor, t.task);
+            boost::apply_visitor(*mTaskExecutor, t.task);
         }
     }
+    mongocxx::database mDb;
+    mongocxx::client mClient;
 public:
     DbWorker&operator=(const DbWorker& oth) = delete;
-    inline int getTaskCount() {
-        return mTaskCount;
+    DbWorker(ConcurrentQueue<GenericDbTask>& _tasks, const mongocxx::uri _uri, string db): mDb(), mClient(_uri), mTasks(_tasks) {
+        mDb = mClient[db];
+        mTaskExecutor = new TaskExecutor(mClient, mDb);
     }
-    DbWorker(ConcurrentQueue<GenericDbTask>& _tasks): mTasks(_tasks) {
-        mStopFlagPtr = make_shared<bool>(false);
+    void start() {
         thread(&DbWorker::mTaskLoop, this).detach();
     }
     void pushTask (GenericDbTask task) {
         mTasks.push(task);
     }
+    void shutdown() {
+        mStopFlag = true;
+    }
     ~DbWorker() {
-        *mStopFlagPtr = true;
+        delete mTaskExecutor;
     }
 };
 

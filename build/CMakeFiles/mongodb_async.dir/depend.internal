@@ -292,6 +292,6 @@ CMakeFiles/mongodb_async.dir/main.cpp.o
  /usr/local/include/mongocxx/v_noabi/mongocxx/write_concern.hpp
  /usr/local/include/mongocxx/v_noabi/mongocxx/write_type.hpp
  /work/mongodb-async/BaseHeader.h
- /work/mongodb-async/ConnectionPoolClient.h
+ /work/mongodb-async/DbConnectionPoolClient.h
  /work/mongodb-async/MongoDbHeader.h
  /work/mongodb-async/main.cpp

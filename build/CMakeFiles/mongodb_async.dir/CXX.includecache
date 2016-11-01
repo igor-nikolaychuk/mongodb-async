@@ -1224,7 +1224,7 @@ queue
 condition_variable
 -
 
-/work/mongodb-async/ConnectionPoolClient.h
+/work/mongodb-async/DbConnectionPoolClient.h
 BaseHeader.h
 /work/mongodb-async/BaseHeader.h
 
@@ -1313,6 +1313,6 @@ mongocxx/instance.hpp
 -
 MongoDbHeader.h
 /work/mongodb-async/MongoDbHeader.h
-ConnectionPoolClient.h
-/work/mongodb-async/ConnectionPoolClient.h
+DbConnectionPoolClient.h
+/work/mongodb-async/DbConnectionPoolClient.h
 

@@ -12,6 +12,7 @@
 #include "boost/shared_ptr.hpp"
 #include "boost/asio.hpp"
 #include <memory>
+#include "boost/optional.hpp"
 
 using std::thread;
 using std::vector;
@@ -25,6 +26,7 @@ using std::shared_ptr;
 using std::make_shared;
 using std::function;
 using std::move;
+using boost::optional;
 using namespace boost::asio;
 
 #endif //CONVSERV_BASEHEADER_H
