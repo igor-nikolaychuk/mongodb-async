@@ -1,0 +1,1 @@
+/usr/bin/c++    -O3 -std=c++11 -pthread    CMakeFiles/mongodb_async.dir/main.cpp.o CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o CMakeFiles/mongodb_async.dir/DbWorker.cpp.o  -o mongodb_async  -L/work/mongodb-async/mongodb_async  -L/usr/local/lib -rdynamic -lmongocxx -lbsoncxx -lboost_system -lboost_filesystem -Wl,-rpath,/work/mongodb-async/mongodb_async:/usr/local/lib 

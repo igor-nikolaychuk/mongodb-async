@@ -1,0 +1,3 @@
+/work/mongodb-async/build/CMakeFiles/rebuild_cache.dir
+/work/mongodb-async/build/CMakeFiles/edit_cache.dir
+/work/mongodb-async/build/CMakeFiles/mongodb_async.dir
