@@ -5,7 +5,8 @@
 #include "../MongoDbHeader.h"
 #include "../TaskContext.h"
 
-typedef function<void(bool err, optional<document_vector_ptr>)> FindCompletionHandler;
+typedef shared_ptr<vector<document_view>> FindResult;
+typedef function<void(bool err, FindResult)> FindCompletionHandler;
 
 class FindTask: public TaskContext {
 public:

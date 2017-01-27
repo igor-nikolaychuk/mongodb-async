@@ -468,14 +468,14 @@ mongocxx/config/prelude.hpp
 mongocxx/config/postlude.hpp
 -
 
-/usr/local/include/mongocxx/v_noabi/mongocxx/client.hpp
+/usr/local/include/mongocxx/v_noabi/mongocxx/dbClient.hpp
 memory
 -
 bsoncxx/string/view_or_value.hpp
 -
 mongocxx/database.hpp
 -
-mongocxx/options/client.hpp
+mongocxx/options/dbClient.hpp
 -
 mongocxx/read_concern.hpp
 -
@@ -776,7 +776,7 @@ mongocxx/config/prelude.hpp
 mongocxx/config/postlude.hpp
 -
 
-/usr/local/include/mongocxx/v_noabi/mongocxx/options/client.hpp
+/usr/local/include/mongocxx/v_noabi/mongocxx/options/dbClient.hpp
 string
 -
 mongocxx/options/ssl.hpp
@@ -1289,7 +1289,7 @@ vector
 -
 bsoncxx/json.hpp
 -
-mongocxx/client.hpp
+mongocxx/dbClient.hpp
 -
 mongocxx/stdx.hpp
 -
@@ -1307,7 +1307,7 @@ bsoncxx/builder/stream/document.hpp
 -
 bsoncxx/json.hpp
 -
-mongocxx/client.hpp
+mongocxx/dbClient.hpp
 -
 mongocxx/instance.hpp
 -

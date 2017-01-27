@@ -5,7 +5,9 @@
 #include "../MongoDbHeader.h"
 #include "../TaskContext.h"
 
-typedef optional<mongocxx:: result::insert_one> InsertOneResult;
+
+typedef core::optional<mongocxx:: result::insert_one> mongocxxInsertOneResult;
+typedef shared_ptr<mongocxxInsertOneResult> InsertOneResult;
 typedef function<void(bool err, InsertOneResult )> InsertOneCompletionHandler;
 
 class InsertOneTask: public TaskContext {

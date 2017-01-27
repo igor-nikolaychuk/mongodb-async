@@ -5,15 +5,17 @@
 #include "../MongoDbHeader.h"
 #include "../TaskContext.h"
 
-typedef function<void(bool err, size_t modifiedCount)> UpdateManyCompletionHandler;
+typedef function<void(bool err, int32_t modifiedCount)> UpdateManyCompletionHandler;
 
 class UpdateManyTask: public TaskContext {
 public:
     string collection;
     document_ptr query;
+    document_ptr document;
     UpdateManyCompletionHandler completionHandler;
-    UpdateManyTask(io_service& targetService, string collection, document_ptr query, UpdateManyCompletionHandler completionHandler)
-            : TaskContext(targetService), collection(collection), query(query), completionHandler(completionHandler) {
+    UpdateManyTask(io_service& targetService, string collection, document_ptr query, document_ptr document, UpdateManyCompletionHandler completionHandler)
+            : TaskContext(targetService), collection(collection), query(query), document(document),
+              completionHandler(completionHandler) {
     }
 };
 

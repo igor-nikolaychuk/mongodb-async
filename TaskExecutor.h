@@ -22,82 +22,179 @@ public:
     int operator()(const InsertOneTask* task) const
     {
         auto collection = defaultDb[task->collection];
-        auto result = collection.insert_one(task->document->view());
         auto handler = task->completionHandler;
-        if(result)
+        try {
+            InsertOneResult resultPtr = make_shared<mongocxxInsertOneResult>(collection.insert_one(task->document->view()));
             task->targetService.post([=]() {
-                handler(false, optional<mongocxx:: result::insert_one>(result.value()));
+                handler(false, resultPtr);
             });
+        }
+        catch(...) {
+            task->targetService.post([=]() {
+                handler(true, nullptr);
+            });
+        }
         delete task;
     }
     int operator()(const InsertManyTask* task) const
     {
-        document_vector_ptr documents = make_shared<document_vector>();
+        auto collection = defaultDb[task->collection];
         auto handler = task->completionHandler;
-        documents->push_back(document{} << "a" << 8 << finalize);
-        task->targetService.post([=]() {
-            //handler(false, );
-        });
+        try {
+            InsertManyResult resultPtr =
+                    make_shared<mongocxxInsertManyResult>(
+                            collection.insert_many(task->documents->begin(), task->documents->end()));
+            task->targetService.post([=]() {
+                handler(false, resultPtr);
+            });
+        }
+        catch(...) {
+            task->targetService.post([=]() {
+                handler(true, nullptr);
+            });
+        }
         delete task;
     }
+
     int operator()(const FindTask* task) const
     {
-        document_vector_ptr documents = make_shared<document_vector>();
+        auto collection = defaultDb[task->collection];
         auto handler = task->completionHandler;
-        documents->push_back(document{} << "a" << 8 << finalize);
-        task->targetService.post([=]() {
-            handler(false, move(documents));
-        });
+        try {
+            FindResult result = make_shared<vector<document_view>>();
+            auto cursor = collection.find(task->query->view());
+            for(auto doc: cursor) {
+                result->push_back(move(doc));
+            }
+            task->targetService.post([=]() {
+                handler(false, result);
+            });
+        }
+        catch(...) {
+            task->targetService.post([=]() {
+                handler(true, nullptr);
+            });
+        }
         delete task;
     }
+
     int operator()(const FindOneTask* task) const
     {
-        document_vector_ptr documents = make_shared<document_vector>();
+        auto collection = defaultDb[task->collection];
         auto handler = task->completionHandler;
-        documents->push_back(document{} << "a" << 8 << finalize);
-        task->targetService.post([=]() {
-            handler(false, optional<document_ptr>());
-        });
+        try {
+            FindOneResult resultPtr;
+            if(!task->findOptionsPtr)
+                resultPtr = make_shared<mongocxxFindOneResult>(
+                        collection.find_one(task->selection->view()));
+            else {
+                auto findOptions = task->findOptionsPtr.get();
+                resultPtr = make_shared<mongocxxFindOneResult>(
+                        collection.find_one(task->selection->view(), *findOptions));
+            }
+            task->targetService.post([=]() {
+                handler(false, resultPtr);
+            });
+        }
+        catch(...) {
+            task->targetService.post([=]() {
+                handler(true, nullptr);
+            });
+        }
         delete task;
     }
+
     int operator()(const UpdateOneTask* task) const
     {
-        document_vector_ptr documents = make_shared<document_vector>();
+        auto collection = defaultDb[task->collection];
         auto handler = task->completionHandler;
-        documents->push_back(document{} << "a" << 8 << finalize);
-        task->targetService.post([=]() {
-            handler(false);
-        });
+        try {
+            collection.update_one(task->query->view(), task->document->view());
+            task->targetService.post([=]() {
+                handler(false);
+            });
+        }
+        catch(...) {
+            task->targetService.post([=]() {
+                handler(true);
+            });
+        }
         delete task;
     }
     int operator()(const UpdateManyTask* task) const
     {
-        document_vector_ptr documents = make_shared<document_vector>();
+        auto collection = defaultDb[task->collection];
         auto handler = task->completionHandler;
-        documents->push_back(document{} << "a" << 8 << finalize);
-        task->targetService.post([=]() {
-            handler(false, 0);
-        });
+        try {
+            auto res = collection.update_many(task->query->view(), task->document->view());
+            if(res) {
+                task->targetService.post([=]() {
+                    handler(false, res.value().modified_count());
+                });
+            }
+            else {
+                task->targetService.post([=]() {
+                    handler(false, 0);
+                });
+            }
+
+        }
+        catch(...) {
+            task->targetService.post([=]() {
+                handler(true, 0);
+            });
+        }
         delete task;
     }
+
     int operator()(const DeleteOneTask* task) const
     {
-        document_vector_ptr documents = make_shared<document_vector>();
+        auto collection = defaultDb[task->collection];
         auto handler = task->completionHandler;
-        documents->push_back(document{} << "a" << 8 << finalize);
-        task->targetService.post([=]() {
-            handler(false);
-        });
+        try {
+            auto res = collection.delete_one(task->query->view());
+            if(res && res->deleted_count()) {
+                task->targetService.post([=]() {
+                    handler(false, true);
+                });
+            }
+            else {
+                task->targetService.post([=]() {
+                    handler(false, false);
+                });
+            }
+        }
+        catch(...) {
+            task->targetService.post([=]() {
+                handler(true, false);
+            });
+        }
         delete task;
     }
+
     int operator()(const DeleteManyTask* task) const
     {
-        document_vector_ptr documents = make_shared<document_vector>();
+        auto collection = defaultDb[task->collection];
         auto handler = task->completionHandler;
-        documents->push_back(document{} << "a" << 8 << finalize);
-        task->targetService.post([=]() {
-            handler(false, 2);
-        });
+        try {
+            auto res = collection.delete_many(task->query->view());
+            if(res) {
+                task->targetService.post([=]() {
+                    handler(false, res.value().deleted_count());
+                });
+            }
+            else {
+                task->targetService.post([=]() {
+                    handler(false, 0);
+                });
+            }
+
+        }
+        catch(...) {
+            task->targetService.post([=]() {
+                handler(true, 0);
+            });
+        }
         delete task;
     }
 };

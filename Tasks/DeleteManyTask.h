@@ -5,7 +5,7 @@
 #include "../MongoDbHeader.h"
 #include "../TaskContext.h"
 
-typedef function<void(bool err, size_t count)> DeleteManyCompletionHandler;
+typedef function<void(bool err, int32_t count)> DeleteManyCompletionHandler;
 
 class DeleteManyTask: public TaskContext {
 public:

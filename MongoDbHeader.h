@@ -18,8 +18,13 @@ using bsoncxx::builder::stream::open_array;
 using bsoncxx::builder::stream::open_document;
 
 typedef bsoncxx::document::value document_value;
+typedef bsoncxx::document::view document_view;
 typedef shared_ptr<document_value> document_ptr;
 typedef vector<document_value> document_vector;
 typedef shared_ptr<document_vector> document_vector_ptr;
+
+typedef mongocxx::options::find find_options;
+typedef shared_ptr<find_options> find_options_ptr;
+
 
 #endif //MONGODB_ASYNC_MONGODBHEADER_H

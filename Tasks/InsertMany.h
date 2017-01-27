@@ -5,7 +5,9 @@
 #include "../MongoDbHeader.h"
 #include "../TaskContext.h"
 
-typedef function<void(bool err, mongocxx::result::insert_many)> InsertManyCompletionHandler;
+typedef core::optional<mongocxx:: result::insert_many> mongocxxInsertManyResult;
+typedef shared_ptr<mongocxxInsertManyResult> InsertManyResult;
+typedef function<void(bool err, InsertManyResult)> InsertManyCompletionHandler;
 
 class InsertManyTask: public TaskContext {
 public:

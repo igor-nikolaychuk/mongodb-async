@@ -41,7 +41,7 @@ CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/bsoncxx/
 CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/bsoncxx/v_noabi/bsoncxx/util/functor.hpp
 CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/bsoncxx/v_noabi/bsoncxx/view_or_value.hpp
 CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/bulk_write.hpp
-CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/client.hpp
+CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/dbClient.hpp
 CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/collection.hpp
 CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/config/compiler.hpp
 CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/config/config.hpp
@@ -62,7 +62,7 @@ CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx
 CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/model/write.hpp
 CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/aggregate.hpp
 CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/bulk_write.hpp
-CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/client.hpp
+CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/dbClient.hpp
 CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/count.hpp
 CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/create_collection.hpp
 CMakeFiles/mongodb_async.dir/DbConnectionPool.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/delete.hpp
@@ -141,7 +141,7 @@ CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/bsoncxx/v_noabi/
 CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/bsoncxx/v_noabi/bsoncxx/util/functor.hpp
 CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/bsoncxx/v_noabi/bsoncxx/view_or_value.hpp
 CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/bulk_write.hpp
-CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/client.hpp
+CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/dbClient.hpp
 CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/collection.hpp
 CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/config/compiler.hpp
 CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/config/config.hpp
@@ -162,7 +162,7 @@ CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi
 CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/model/write.hpp
 CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/aggregate.hpp
 CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/bulk_write.hpp
-CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/client.hpp
+CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/dbClient.hpp
 CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/count.hpp
 CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/create_collection.hpp
 CMakeFiles/mongodb_async.dir/DbWorker.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/delete.hpp
@@ -240,7 +240,7 @@ CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/bsoncxx/v_noabi/bson
 CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/bsoncxx/v_noabi/bsoncxx/util/functor.hpp
 CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/bsoncxx/v_noabi/bsoncxx/view_or_value.hpp
 CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/bulk_write.hpp
-CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/client.hpp
+CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/dbClient.hpp
 CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/collection.hpp
 CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/config/compiler.hpp
 CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/config/config.hpp
@@ -262,7 +262,7 @@ CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mon
 CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/model/write.hpp
 CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/aggregate.hpp
 CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/bulk_write.hpp
-CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/client.hpp
+CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/dbClient.hpp
 CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/count.hpp
 CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/create_collection.hpp
 CMakeFiles/mongodb_async.dir/main.cpp.o: /usr/local/include/mongocxx/v_noabi/mongocxx/options/delete.hpp

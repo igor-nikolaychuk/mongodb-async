@@ -30,14 +30,14 @@ public:
     void find(io_service &io, string &collection, document_ptr &query, FindCompletionHandler &callback) {
         mTasks.push(GenericDbTask(new FindTask(io, move(collection),move(query), callback)));
     }
-    void findOne(io_service &io, string &collection, document_ptr &query, FindOneCompletionHandler &callback) {
-        mTasks.push(GenericDbTask(new FindOneTask(io, move(collection),move(query), callback)));
+    void findOne(io_service &io, string &collection, document_ptr &query, FindOneCompletionHandler &callback, find_options_ptr opt_ptr = nullptr) {
+        mTasks.push(GenericDbTask(new FindOneTask(io, move(collection),move(query), callback, opt_ptr)));
     }
-    void updateOne(io_service& io, string& collection, document_ptr& query, UpdateOneCompletionHandler& callback) {
-        mTasks.push(GenericDbTask(new UpdateOneTask(io, move(collection),move(query), callback)));
+    void updateOne(io_service& io, string& collection, document_ptr& query, document_ptr& documents, UpdateOneCompletionHandler& callback) {
+        mTasks.push(GenericDbTask(new UpdateOneTask(io, move(collection),move(query), move(documents), callback)));
     }
-    void updateMany(io_service& io, string& collection, document_ptr& query, UpdateManyCompletionHandler& callback) {
-        mTasks.push(GenericDbTask(new UpdateManyTask(io, move(collection),move(query), callback)));
+    void updateMany(io_service& io, string& collection, document_ptr& query, document_ptr& document, UpdateManyCompletionHandler& callback) {
+        mTasks.push(GenericDbTask(new UpdateManyTask(io, move(collection),move(query), move(document), callback)));
     }
     void deleteOne(io_service& io, string& collection, document_ptr& query, DeleteOneCompletionHandler& callback) {
         mTasks.push(GenericDbTask(new DeleteOneTask(io, move(collection),move(query), callback)));

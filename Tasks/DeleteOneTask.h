@@ -5,7 +5,7 @@
 #include "../MongoDbHeader.h"
 #include "../TaskContext.h"
 
-typedef function<void(bool err)> DeleteOneCompletionHandler;
+typedef function<void(bool err, bool deleted)> DeleteOneCompletionHandler;
 
 class DeleteOneTask: public TaskContext {
 public:

@@ -19,14 +19,14 @@ public:
     void find(string &&collection, document_ptr &&query, FindCompletionHandler callback) {
         mDbConnectionPool.find(mIoService, collection, query, callback);
     }
-    void findOne(string &&collection, document_ptr &&query, FindOneCompletionHandler callback) {
-        mDbConnectionPool.findOne(mIoService, collection, query, callback);
+    void findOne(string &&collection, document_ptr &&query, FindOneCompletionHandler callback, find_options_ptr opt_ptr = nullptr) {
+        mDbConnectionPool.findOne(mIoService, collection, query, callback, opt_ptr);
     }
-    void updateOne(string&& collection, document_ptr&& query, UpdateOneCompletionHandler callback) {
-        mDbConnectionPool.updateOne(mIoService, collection, query, callback);
+    void updateOne(string&& collection, document_ptr&& query, document_ptr&& document, UpdateOneCompletionHandler callback) {
+        mDbConnectionPool.updateOne(mIoService, collection, query, document, callback);
     }
-    void updateMany(string&& collection, document_ptr&& query, UpdateManyCompletionHandler callback) {
-        mDbConnectionPool.updateMany(mIoService, collection, query, callback);
+    void updateMany(string&& collection, document_ptr&& query, document_ptr&& document, UpdateManyCompletionHandler callback) {
+        mDbConnectionPool.updateMany(mIoService, collection, query, document, callback);
     }
     void deleteOne(string&& collection, document_ptr&& query, DeleteOneCompletionHandler callback) {
         mDbConnectionPool.deleteOne(mIoService, collection, query, callback);

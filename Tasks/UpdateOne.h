@@ -11,10 +11,14 @@ class UpdateOneTask: public TaskContext {
 public:
     string collection;
     document_ptr query;
+    document_ptr document;
     UpdateOneCompletionHandler completionHandler;
-    UpdateOneTask(io_service& targetService, string collection, document_ptr query, UpdateOneCompletionHandler completionHandler)
-            : TaskContext(targetService), collection(collection), query(query), completionHandler(completionHandler) {
-    }
+    UpdateOneTask(io_service& targetService, string collection, document_ptr query, document_ptr document, UpdateOneCompletionHandler completionHandler)
+            : TaskContext(targetService),
+              collection(collection),
+              query(query),
+              document(document),
+              completionHandler(completionHandler) { }
 };
 
 #endif //MONGODB_ASYNC_UPDATEONE_H

@@ -5,18 +5,23 @@
 #include "../MongoDbHeader.h"
 #include "../TaskContext.h"
 
-#include "boost/optional.hpp"
-using boost::optional;
-
-typedef function<void(bool err, optional<document_ptr>)> FindOneCompletionHandler;
+typedef mongocxx::stdx::optional<bsoncxx::document::value> mongocxxFindOneResult;
+typedef shared_ptr<mongocxxFindOneResult> FindOneResult;
+typedef function<void(bool err, FindOneResult)> FindOneCompletionHandler;
 
 class FindOneTask: public TaskContext {
 public:
     string collection;
-    document_ptr query;
+    document_ptr selection;
+    find_options_ptr findOptionsPtr;
     FindOneCompletionHandler completionHandler;
-    FindOneTask(io_service& targetService, string collection, document_ptr query, FindOneCompletionHandler completionHandler)
-            : TaskContext(targetService), collection(collection), query(query), completionHandler(completionHandler) {
+    FindOneTask(io_service& targetService, string collection, document_ptr selection,
+                FindOneCompletionHandler completionHandler,
+                find_options_ptr findOptionsPtr = nullptr
+    )
+            : TaskContext(targetService), collection(collection), selection(selection), completionHandler(completionHandler),
+            findOptionsPtr(findOptionsPtr)
+    {
     }
 };
 

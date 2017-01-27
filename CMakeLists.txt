@@ -5,7 +5,7 @@ find_package(libmongocxx)
 find_package(libbsoncxx)
 find_package( Boost COMPONENTS system filesystem  REQUIRED )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread ")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread -O3")
 
 set(SOURCE_FILES main.cpp BaseHeader.h DbConnectionPool.h MongoDbHeader.h Tasks/FindOneTask.h DbWorker.h ConcurrentQueue.h Tasks/FindTask.h GenericDbTask.h DbConnectionPoolClient.h TaskContext.h TaskExecutor.h Tasks/DeleteOneTask.h Tasks/DeleteManyTask.h Tasks/UpdateOne.h Tasks/UpdateMany.h Tasks/InsertOne.h Tasks/InsertMany.h)
 include_directories(mongodb_async ${LIBMONGOCXX_INCLUDE_DIRS} ${LIBBSONCXX_INCLUDE_DIRS})

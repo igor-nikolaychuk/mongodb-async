@@ -7,9 +7,6 @@
 
 #include "BaseHeader.h"
 
-#include "boost/asio.hpp"
-using boost::asio::io_service;
-#include "BaseHeader.h"
 #include "ConcurrentQueue.h"
 #include "GenericDbTask.h"
 #include "TaskExecutor.h"
