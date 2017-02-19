@@ -62,13 +62,26 @@ public:
         auto handler = task->completionHandler;
         try {
             FindResult result = make_shared<vector<document_view>>();
-            auto cursor = collection.find(task->query->view());
-            for(auto doc: cursor) {
-                result->push_back(move(doc));
+
+            auto handleRes = [&](mongocxx::cursor& cursor){
+                for(auto doc: cursor) {
+                    result->push_back(move(doc));
+                }
+                task->targetService.post([=]() {
+                    handler(false, result);
+                });
+            };
+
+            if(!task->findOptionsPtr) {
+                auto cursor = collection.find(task->query->view());
+                handleRes(cursor);
             }
-            task->targetService.post([=]() {
-                handler(false, result);
-            });
+            else {
+                auto findOptions = task->findOptionsPtr.get();
+                auto cursor = collection.find(task->query->view(), *findOptions);
+                handleRes(cursor);
+            }
+
         }
         catch(...) {
             task->targetService.post([=]() {

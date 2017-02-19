@@ -27,8 +27,8 @@ public:
     void insertOne(io_service &io, string &collection, document_ptr &document, InsertOneCompletionHandler &callback) {
         mTasks.push(GenericDbTask(new InsertOneTask(io, move(collection),move(document), callback)));
     }
-    void find(io_service &io, string &collection, document_ptr &query, FindCompletionHandler &callback) {
-        mTasks.push(GenericDbTask(new FindTask(io, move(collection),move(query), callback)));
+    void find(io_service &io, string &collection, document_ptr &query, FindCompletionHandler &callback, find_options_ptr opt_ptr = nullptr) {
+        mTasks.push(GenericDbTask(new FindTask(io, move(collection), move(query), callback, opt_ptr)));
     }
     void findOne(io_service &io, string &collection, document_ptr &query, FindOneCompletionHandler &callback, find_options_ptr opt_ptr = nullptr) {
         mTasks.push(GenericDbTask(new FindOneTask(io, move(collection),move(query), callback, opt_ptr)));

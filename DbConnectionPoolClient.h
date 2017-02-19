@@ -16,8 +16,8 @@ public:
     void insertMany(string &&collection, document_vector_ptr &&documents, InsertManyCompletionHandler callback) {
         mDbConnectionPool.insertMany(mIoService, collection, documents, callback);
     }
-    void find(string &&collection, document_ptr &&query, FindCompletionHandler callback) {
-        mDbConnectionPool.find(mIoService, collection, query, callback);
+    void find(string &&collection, document_ptr &&query, FindCompletionHandler callback, find_options_ptr opt_ptr = nullptr) {
+        mDbConnectionPool.find(mIoService, collection, query, callback, opt_ptr);
     }
     void findOne(string &&collection, document_ptr &&query, FindOneCompletionHandler callback, find_options_ptr opt_ptr = nullptr) {
         mDbConnectionPool.findOne(mIoService, collection, query, callback, opt_ptr);
