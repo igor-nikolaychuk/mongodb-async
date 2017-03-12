@@ -12,6 +12,7 @@
 #include "Tasks/UpdateMany.h"
 #include "Tasks/InsertOne.h"
 #include "Tasks/InsertMany.h"
+#include "Tasks/DbSessionTask.h"
 
 class TaskExecutor : public boost::static_visitor<int>
 {
@@ -65,7 +66,42 @@ public:
 
             auto handleRes = [&](mongocxx::cursor& cursor){
                 for(auto doc: cursor) {
-                    result->push_back(move(doc));
+                    result->push_back(doc);
+                }
+                task->targetService.post([=]() {
+                    handler(false, result);
+                });
+            };
+
+            if(!task->findOptionsPtr) {
+                auto cursor = collection.find(task->query->view());
+                handleRes(cursor);
+            }
+            else {
+                auto findOptions = task->findOptionsPtr.get();
+                auto cursor = collection.find(task->query->view(), *findOptions);
+                handleRes(cursor);
+            }
+
+        }
+        catch(...) {
+            task->targetService.post([=]() {
+                handler(true, nullptr);
+            });
+        }
+        delete task;
+    }
+
+    int operator()(const FindTaskJson* task) const
+    {
+        auto collection = defaultDb[task->collection];
+        auto handler = task->completionHandler;
+        try {
+            FindResultJson result = make_shared<vector<string>>();
+
+            auto handleRes = [&](mongocxx::cursor& cursor){
+                for(auto doc: cursor) {
+                    result->push_back(bsoncxx::to_json(doc));
                 }
                 task->targetService.post([=]() {
                     handler(false, result);
@@ -114,6 +150,12 @@ public:
                 handler(true, nullptr);
             });
         }
+        delete task;
+    }
+
+    int operator()(const DbSessionTask* task) const
+    {
+        task->delegate(client, defaultDb);
         delete task;
     }
 

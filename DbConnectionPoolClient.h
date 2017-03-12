@@ -19,6 +19,9 @@ public:
     void find(string &&collection, document_ptr &&query, FindCompletionHandler callback, find_options_ptr opt_ptr = nullptr) {
         mDbConnectionPool.find(mIoService, collection, query, callback, opt_ptr);
     }
+    void find_json(string &&collection, document_ptr &&query, FindJsonCompletionHandler callback, find_options_ptr opt_ptr = nullptr) {
+        mDbConnectionPool.find_json(mIoService, collection, query, callback, opt_ptr);
+    }
     void findOne(string &&collection, document_ptr &&query, FindOneCompletionHandler callback, find_options_ptr opt_ptr = nullptr) {
         mDbConnectionPool.findOne(mIoService, collection, query, callback, opt_ptr);
     }
@@ -34,6 +37,10 @@ public:
     void deleteMany(string&& collection, document_ptr&& query, DeleteManyCompletionHandler callback) {
         mDbConnectionPool.deleteMany(mIoService, collection, query, callback);
     }
+    void dbSession(DbSessionDelegate delegate) {
+        mDbConnectionPool.dbSession(delegate);
+    }
+
     DbConnectionPoolClient(io_service &mIoService, DbConnectionPool& cp)
             : mIoService(mIoService), mDbConnectionPool(cp) {
     }

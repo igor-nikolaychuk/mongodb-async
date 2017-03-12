@@ -12,17 +12,20 @@
 #include "Tasks/UpdateMany.h"
 #include "Tasks/InsertOne.h"
 #include "Tasks/InsertMany.h"
+#include "Tasks/FindTaskJson.h"
+#include "Tasks/DbSessionTask.h"
 
 using boost::variant;
 
 class GenericDbTask {
 public:
-    variant<InsertOneTask*, InsertManyTask*, FindTask*, FindOneTask*, UpdateOneTask*, UpdateManyTask*, DeleteOneTask*, DeleteManyTask*> task;
+    variant<DbSessionTask*, FindTaskJson*, InsertOneTask*, InsertManyTask*, FindTask*, FindOneTask*, UpdateOneTask*, UpdateManyTask*, DeleteOneTask*, DeleteManyTask*> task;
 
     GenericDbTask(InsertOneTask* t): task(t) { }
     GenericDbTask(InsertManyTask* t): task(t) { }
 
     GenericDbTask(FindTask* t): task(t) { }
+    GenericDbTask(FindTaskJson* t): task(t) { }
     GenericDbTask(FindOneTask* t): task(t) { }
 
     GenericDbTask(UpdateOneTask* t): task(t) { }
@@ -30,6 +33,8 @@ public:
 
     GenericDbTask(DeleteOneTask* t): task(t) { }
     GenericDbTask(DeleteManyTask* t): task(t) { }
+
+    GenericDbTask(DbSessionTask* t): task(t) { }
 };
 
 typedef shared_ptr<GenericDbTask> GenericDbTaskPtr;

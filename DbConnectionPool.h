@@ -30,6 +30,9 @@ public:
     void find(io_service &io, string &collection, document_ptr &query, FindCompletionHandler &callback, find_options_ptr opt_ptr = nullptr) {
         mTasks.push(GenericDbTask(new FindTask(io, move(collection), move(query), callback, opt_ptr)));
     }
+    void find_json(io_service &io, string &collection, document_ptr &query, FindJsonCompletionHandler &callback, find_options_ptr opt_ptr = nullptr) {
+        mTasks.push(GenericDbTask(new FindTaskJson(io, move(collection), move(query), callback, opt_ptr)));
+    }
     void findOne(io_service &io, string &collection, document_ptr &query, FindOneCompletionHandler &callback, find_options_ptr opt_ptr = nullptr) {
         mTasks.push(GenericDbTask(new FindOneTask(io, move(collection),move(query), callback, opt_ptr)));
     }
@@ -44,6 +47,9 @@ public:
     }
     void deleteMany(io_service& io, string& collection, document_ptr& query, DeleteManyCompletionHandler& callback) {
         mTasks.push(GenericDbTask(new DeleteManyTask(io, move(collection),move(query), callback)));
+    }
+    void dbSession(DbSessionDelegate delegate) {
+        mTasks.push(GenericDbTask(new DbSessionTask(delegate)));
     }
 
 
