@@ -26,6 +26,15 @@ using std::make_shared;
 using std::function;
 using std::move;
 using boost::optional;
+
+#ifdef MONGODB_ASYNC_USE_BOOST_ASIO
+
+namespace asio {
+    using namespace boost::asio;
+}
+
+#endif
+
 using namespace asio;
 
 #endif //CONVSERV_BASEHEADER_H
